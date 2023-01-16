@@ -32,14 +32,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        {/* <Header /> */}
         <div className="container">
           <div className="row mt-5">
             <div className="col-md-8 offset-md-2">
               <InteractiveDemo audioContext={audioContext} soundfontHostname={soundfontHostname} />
             </div>
           </div>
-          <hr className="mt-5" />
+          {/* <hr className="mt-5" />
           <div className="row mt-5">
             <div className="col-md-8 offset-md-2">
               <PlaybackDemo
@@ -54,9 +54,9 @@ class App extends React.Component {
             <div className="col">
               <Installation />
             </div>
-          </div>
+          </div> */}
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

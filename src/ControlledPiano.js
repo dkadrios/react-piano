@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import difference from 'lodash.difference';
 import Keyboard from './Keyboard';
 
+const DefaultTooltip = ({ children }) => children;
+
 class ControlledPiano extends React.Component {
   static propTypes = {
     noteRange: PropTypes.object.isRequired,
@@ -23,6 +25,7 @@ class ControlledPiano extends React.Component {
         midiNumber: PropTypes.number.isRequired,
       }),
     ),
+    Tooltip: PropTypes.oneOfType([PropTypes.elementType, PropTypes.func]),
   };
 
   static defaultProps = {
@@ -38,6 +41,7 @@ class ControlledPiano extends React.Component {
           {keyboardShortcut}
         </div>
       ) : null,
+    Tooltip: DefaultTooltip,
   };
 
   state = {
@@ -179,6 +183,7 @@ class ControlledPiano extends React.Component {
           gliss={this.state.isMouseDown}
           useTouchEvents={this.state.useTouchEvents}
           renderNoteLabel={this.renderNoteLabel}
+          Tooltip={this.props.Tooltip}
         />
       </div>
     );

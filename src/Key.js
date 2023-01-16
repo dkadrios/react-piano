@@ -4,6 +4,8 @@ import classNames from 'classnames';
 
 import MidiNumbers from './MidiNumbers';
 
+const middleC = 60;
+
 class Key extends React.Component {
   static propTypes = {
     midiNumber: PropTypes.number.isRequired,
@@ -24,16 +26,16 @@ class Key extends React.Component {
     accidentalWidthRatio: 0.65,
     pitchPositions: {
       C: 0,
-      Db: 0.55,
+      Db: 0.672,
       D: 1,
-      Eb: 1.8,
+      Eb: 1.672,
       E: 2,
       F: 3,
-      Gb: 3.5,
+      Gb: 3.672,
       G: 4,
-      Ab: 4.7,
+      Ab: 4.672,
       A: 5,
-      Bb: 5.85,
+      Bb: 5.672,
       B: 6,
     },
   };
@@ -44,6 +46,9 @@ class Key extends React.Component {
 
   onStopNoteInput = () => {
     this.props.onStopNoteInput(this.props.midiNumber);
+    if (this.props.onKeyMouseLeave) {
+      this.props.onKeyMouseLeave(this.props.midiNumber)
+    }
   };
 
   // Key position is represented by the number of natural key widths from the left
@@ -75,6 +80,10 @@ class Key extends React.Component {
       children,
     } = this.props;
 
+    const left = accidental
+      ? ratioToPercentage(this.getRelativeKeyPosition(midiNumber) * naturalKeyWidth)
+      : ratioToPercentage(this.getRelativeKeyPosition(midiNumber) * naturalKeyWidth)
+
     // Need to conditionally include/exclude handlers based on useTouchEvents,
     // because otherwise mobile taps double fire events.
     return (
@@ -84,16 +93,22 @@ class Key extends React.Component {
           'ReactPiano__Key--natural': !accidental,
           'ReactPiano__Key--disabled': disabled,
           'ReactPiano__Key--active': active,
+          'ReactPiano__Key--middleC': midiNumber === middleC,
         })}
         style={{
-          left: ratioToPercentage(this.getRelativeKeyPosition(midiNumber) * naturalKeyWidth),
+          left,
           width: ratioToPercentage(
             accidental ? accidentalWidthRatio * naturalKeyWidth : naturalKeyWidth,
           ),
         }}
         onMouseDown={useTouchEvents ? null : this.onPlayNoteInput}
         onMouseUp={useTouchEvents ? null : this.onStopNoteInput}
-        onMouseEnter={gliss ? this.onPlayNoteInput : null}
+        onMouseEnter={() => {
+          if (this.props.onKeyMouseEnter) {
+            this.props.onKeyMouseEnter(midiNumber, accidental)
+          }
+          if(gliss) this.onPlayNoteInput()
+        }}
         onMouseLeave={this.onStopNoteInput}
         onTouchStart={useTouchEvents ? this.onPlayNoteInput : null}
         onTouchCancel={useTouchEvents ? this.onStopNoteInput : null}

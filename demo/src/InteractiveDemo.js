@@ -1,5 +1,5 @@
 import React from 'react';
-import { Piano, KeyboardShortcuts, MidiNumbers } from 'react-piano';
+import { Piano, KeyboardShortcuts, MidiNumbers } from './dist/react-piano.cjs' // 'react-piano';
 import MdArrowDownward from 'react-icons/lib/md/arrow-downward';
 
 import DimensionsProvider from './DimensionsProvider';
