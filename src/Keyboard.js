@@ -22,7 +22,6 @@ class Keyboard extends React.Component {
     useTouchEvents: PropTypes.bool,
     // If width is not provided, must have fixed width and height in parent container
     width: PropTypes.number,
-    Tooltip: PropTypes.oneOfType([PropTypes.elementType, PropTypes.func]).isRequired,
   };
 
   static defaultProps = {
@@ -66,7 +65,6 @@ class Keyboard extends React.Component {
 
   render() {
     const naturalKeyWidth = this.getNaturalKeyWidth();
-    const Tooltip = this.props.Tooltip;
 
     return (
       <div
@@ -77,30 +75,29 @@ class Keyboard extends React.Component {
           const { note, isAccidental } = MidiNumbers.getAttributes(midiNumber);
           const isActive = !this.props.disabled && this.props.activeNotes.includes(midiNumber);
           return (
-            <Tooltip {...{ note, isAccidental, key: midiNumber }}>
-              <Key
-                naturalKeyWidth={naturalKeyWidth}
-                midiNumber={midiNumber}
-                noteRange={this.props.noteRange}
-                active={isActive}
-                accidental={isAccidental}
-                disabled={this.props.disabled}
-                onPlayNoteInput={this.props.onPlayNoteInput}
-                onStopNoteInput={this.props.onStopNoteInput}
-                gliss={this.props.gliss}
-                useTouchEvents={this.props.useTouchEvents}
-                onKeyMouseEnter={this.props.onKeyMouseEnter}
-                onKeyMouseLeave={this.props.onKeyMouseLeave}
-              >
-                {this.props.disabled
-                  ? null
-                  : this.props.renderNoteLabel({
-                      isActive,
-                      isAccidental,
-                      midiNumber,
-                    })}
-                </Key>
-              </Tooltip>
+            <Key
+              accidental={isAccidental}
+              active={isActive}
+              disabled={this.props.disabled}
+              gliss={this.props.gliss}
+              key={midiNumber}
+              midiNumber={midiNumber}
+              naturalKeyWidth={naturalKeyWidth}
+              noteRange={this.props.noteRange}
+              onKeyMouseEnter={this.props.onKeyMouseEnter}
+              onKeyMouseLeave={this.props.onKeyMouseLeave}
+              onPlayNoteInput={this.props.onPlayNoteInput}
+              onStopNoteInput={this.props.onStopNoteInput}
+              useTouchEvents={this.props.useTouchEvents}
+            >
+              {this.props.disabled
+                ? null
+                : this.props.renderNoteLabel({
+                    isActive,
+                    isAccidental,
+                    midiNumber,
+                  })}
+              </Key>
           );
         })}
       </div>

@@ -88,6 +88,10 @@ class Key extends React.Component {
       ? ratioToPercentage(this.getRelativeKeyPosition(midiNumber) * naturalKeyWidth)
       : ratioToPercentage(this.getRelativeKeyPosition(midiNumber) * naturalKeyWidth)
 
+    const width = ratioToPercentage(
+      accidental ? accidentalWidthRatio * naturalKeyWidth : naturalKeyWidth,
+    )
+
     // Need to conditionally include/exclude handlers based on useTouchEvents,
     // because otherwise mobile taps double fire events.
     return (
@@ -101,15 +105,18 @@ class Key extends React.Component {
         })}
         style={{
           left,
-          width: ratioToPercentage(
-            accidental ? accidentalWidthRatio * naturalKeyWidth : naturalKeyWidth,
-          ),
+          width,
         }}
         onMouseDown={useTouchEvents ? null : this.onPlayNoteInput}
         onMouseUp={useTouchEvents ? null : this.onStopNoteInput}
         onMouseEnter={() => {
           if (this.props.onKeyMouseEnter) {
-            this.props.onKeyMouseEnter(midiNumber, accidental)
+            this.props.onKeyMouseEnter({
+              accidental,
+              left,
+              midiNumber,
+              width,
+            })
           }
           if(gliss) this.onPlayNoteInput()
         }}
