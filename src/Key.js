@@ -15,6 +15,8 @@ class Key extends React.Component {
     accidental: PropTypes.bool.isRequired,
     active: PropTypes.bool.isRequired,
     disabled: PropTypes.bool.isRequired,
+    onKeyMouseEnter: PropTypes.func,
+    onKeyMouseLeave: PropTypes.func,
     onPlayNoteInput: PropTypes.func.isRequired,
     onStopNoteInput: PropTypes.func.isRequired,
     accidentalWidthRatio: PropTypes.number.isRequired,
@@ -24,6 +26,8 @@ class Key extends React.Component {
 
   static defaultProps = {
     accidentalWidthRatio: 0.65,
+    onKeyMouseEnter: undefined,
+    onKeyMouseLeave: undefined,
     pitchPositions: {
       C: 0,
       Db: 0.672,

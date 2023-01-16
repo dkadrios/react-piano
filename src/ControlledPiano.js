@@ -12,6 +12,8 @@ class ControlledPiano extends React.Component {
     activeNotes: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     playNote: PropTypes.func.isRequired,
     stopNote: PropTypes.func.isRequired,
+    onKeyMouseEnter: PropTypes.func,
+    onKeyMouseLeave: PropTypes.func,
     onPlayNoteInput: PropTypes.func.isRequired,
     onStopNoteInput: PropTypes.func.isRequired,
     renderNoteLabel: PropTypes.func.isRequired,
@@ -29,6 +31,8 @@ class ControlledPiano extends React.Component {
   };
 
   static defaultProps = {
+    onKeyMouseEnter: undefined,
+    onKeyMouseLeave: undefined,
     renderNoteLabel: ({ keyboardShortcut, midiNumber, isActive, isAccidental }) =>
       keyboardShortcut ? (
         <div
@@ -172,18 +176,20 @@ class ControlledPiano extends React.Component {
         data-testid="container"
       >
         <Keyboard
-          noteRange={this.props.noteRange}
-          onPlayNoteInput={this.onPlayNoteInput}
-          onStopNoteInput={this.onStopNoteInput}
           activeNotes={this.props.activeNotes}
           className={this.props.className}
           disabled={this.props.disabled}
-          width={this.props.width}
-          keyWidthToHeight={this.props.keyWidthToHeight}
           gliss={this.state.isMouseDown}
-          useTouchEvents={this.state.useTouchEvents}
+          keyWidthToHeight={this.props.keyWidthToHeight}
+          noteRange={this.props.noteRange}
+          onKeyMouseEnter={this.props.onKeyMouseEnter}
+          onKeyMouseLeave={this.props.onKeyMouseLeave}
+          onPlayNoteInput={this.onPlayNoteInput}
+          onStopNoteInput={this.onStopNoteInput}
           renderNoteLabel={this.renderNoteLabel}
           Tooltip={this.props.Tooltip}
+          useTouchEvents={this.state.useTouchEvents}
+          width={this.props.width}
         />
       </div>
     );

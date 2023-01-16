@@ -10,6 +10,8 @@ class Keyboard extends React.Component {
   static propTypes = {
     noteRange: noteRangePropType,
     activeNotes: PropTypes.arrayOf(PropTypes.number),
+    onKeyMouseEnter: PropTypes.func,
+    onKeyMouseLeave: PropTypes.func,
     onPlayNoteInput: PropTypes.func.isRequired,
     onStopNoteInput: PropTypes.func.isRequired,
     renderNoteLabel: PropTypes.func.isRequired,
@@ -26,9 +28,11 @@ class Keyboard extends React.Component {
   static defaultProps = {
     disabled: false,
     gliss: false,
-    useTouchEvents: false,
     keyWidthToHeight: 0.33,
+    onKeyMouseEnter: undefined,
+    onKeyMouseLeave: undefined,
     renderNoteLabel: () => {},
+    useTouchEvents: false,
   };
 
   // Range of midi numbers on keyboard
