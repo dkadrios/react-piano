@@ -96,6 +96,7 @@ class Key extends React.Component {
     // because otherwise mobile taps double fire events.
     return (
       <div
+        data-midinumber={midiNumber}
         className={classNames('ReactPiano__Key', {
           'ReactPiano__Key--accidental': accidental,
           'ReactPiano__Key--natural': !accidental,
@@ -107,8 +108,21 @@ class Key extends React.Component {
           left,
           width,
         }}
+        onDoubleClick={() => {
+          if (this.props.onDoubleClick) {
+            this.props.onDoubleClick(midiNumber)
+          }
+        }}
         onMouseDown={useTouchEvents ? null : this.onPlayNoteInput}
-        onMouseUp={useTouchEvents ? null : this.onStopNoteInput}
+        onMouseUp={() => {
+          if (this.props.onClick) {
+            this.props.onClick(midiNumber)
+          }
+          if (!useTouchEvents) {
+            this.onStopNoteInput()
+          }
+        }
+        }
         onMouseEnter={() => {
           if (this.props.onKeyMouseEnter) {
             this.props.onKeyMouseEnter({

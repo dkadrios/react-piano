@@ -84,6 +84,8 @@ class Keyboard extends React.Component {
               midiNumber={midiNumber}
               naturalKeyWidth={naturalKeyWidth}
               noteRange={this.props.noteRange}
+              onClick={this.props.onClick}
+              onDoubleClick={this.props.onDoubleClick}
               onKeyMouseEnter={this.props.onKeyMouseEnter}
               onKeyMouseLeave={this.props.onKeyMouseLeave}
               onPlayNoteInput={this.props.onPlayNoteInput}

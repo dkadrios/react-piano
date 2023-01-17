@@ -1,6 +1,6 @@
 {
   "name": "zds-react-piano",
-  "version": "4.0.6",
+  "version": "4.0.10",
   "description": "A responsive, customizable react piano keyboard component",
   "main": "dist/react-piano.cjs.js",
   "module": "dist/react-piano.esm.js",

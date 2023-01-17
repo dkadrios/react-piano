@@ -10,6 +10,8 @@ class ControlledPiano extends React.Component {
     activeNotes: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     playNote: PropTypes.func.isRequired,
     stopNote: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
+    onDoubleClick: PropTypes.func,
     onKeyMouseEnter: PropTypes.func,
     onKeyMouseLeave: PropTypes.func,
     onPlayNoteInput: PropTypes.func.isRequired,
@@ -178,6 +180,8 @@ class ControlledPiano extends React.Component {
           gliss={this.state.isMouseDown}
           keyWidthToHeight={this.props.keyWidthToHeight}
           noteRange={this.props.noteRange}
+          onClick={this.props.onClick}
+          onDoubleClick={this.props.onDoubleClick}
           onKeyMouseEnter={this.props.onKeyMouseEnter}
           onKeyMouseLeave={this.props.onKeyMouseLeave}
           onPlayNoteInput={this.onPlayNoteInput}
